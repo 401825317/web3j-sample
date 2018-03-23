@@ -1,6 +1,7 @@
 package com.ethjava;
 
 import com.ethjava.utils.Environment;
+import com.ethjava.utils.Web3JClient;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.web3j.abi.FunctionEncoder;
@@ -47,9 +48,9 @@ public class ColdWallet {
 	private static String privateKey = "f4529331f460fa88cc14eb981baf90201e7fc709386bf2f5b9ec687639f70086";
 
 	public static void main(String[] args) {
-		web3j = Web3j.build(new HttpService(Environment.RPC_URL));
+		web3j = Web3JClient.getClient();
 		try {
-//			createWallet("11111111");
+			createWallet("11111111");
 //			decryptWallet(keystore, "11111111");
 //			testTransaction();
 //			testTokenTransaction();
