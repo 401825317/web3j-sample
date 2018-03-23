@@ -16,28 +16,31 @@ import java.util.List;
  */
 public class AccountManager {
 	private static Admin admin;
+	private static final String password="123456789";
 
 	public static void main(String[] args) {
 		admin = Admin.build(new HttpService(Environment.RPC_URL));
-		createNewAccount();
+		String address=createNewAccount();
 		getAccountList();
-		unlockAccount();
+		unlockAccount(address);
 
 //		admin.personalSendTransaction(); 该方法与web3j.sendTransaction相同 不在此写例子。
 	}
 
 	/**
 	 * 创建账号
+	 * @return 
 	 */
-	private static void createNewAccount() {
-		String password = "123456789";
+	private static String createNewAccount() {
+		String address="";
 		try {
 			NewAccountIdentifier newAccountIdentifier = admin.personalNewAccount(password).send();
-			String address = newAccountIdentifier.getAccountId();
+			address = newAccountIdentifier.getAccountId();
 			System.out.println("new account address " + address);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		return address;
 	}
 
 	/**
@@ -59,10 +62,9 @@ public class AccountManager {
 
 	/**
 	 * 账号解锁
+	 * @param address 
 	 */
-	private static void unlockAccount() {
-		String address = "0x05f50cd5a97d9b3fec35df3d0c6c8234e6793bdf";
-		String password = "123456789";
+	private static void unlockAccount(String address) {
 		//账号解锁持续时间 单位秒 缺省值300秒
 		BigInteger unlockDuration = BigInteger.valueOf(60L);
 		try {
